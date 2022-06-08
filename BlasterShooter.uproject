@@ -5,7 +5,7 @@
 	"Description": "",
 	"Modules": [
 		{
-			"Name": "Blaster",
+			"Name": "BlasterShooter",
 			"Type": "Runtime",
 			"LoadingPhase": "Default"
 		}
@@ -26,10 +26,6 @@
 				"Mac",
 				"Linux"
 			]
-		},
-		{
-			"Name": "OnlineSubsystemSteam",
-			"Enabled": true
 		}
 	]
 }
