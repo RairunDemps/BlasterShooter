@@ -8,6 +8,8 @@
 
 class USpringArmComponent;
 class UCameraComponent;
+class UBSWeaponComponent;
+class ABSBaseWeapon;
 
 UCLASS()
 class BLASTERSHOOTER_API ABSPlayerCharacter : public ACharacter
@@ -16,6 +18,9 @@ class BLASTERSHOOTER_API ABSPlayerCharacter : public ACharacter
 
 public:
     ABSPlayerCharacter();
+
+    bool IsWeaponEquipped() const;
+
     virtual void Tick(float DeltaTime) override;
     virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
@@ -26,9 +31,15 @@ protected:
     UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
     UCameraComponent* CameraComponent;
 
+    UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+    UBSWeaponComponent* WeaponComponent;
+
     virtual void BeginPlay() override;
 
 private:
     void MoveForward(float Value);
     void MoveRight(float Value);
+
+    void PickupWeapon();
+    void CrouchButtonPressed();
 };

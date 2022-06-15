@@ -8,6 +8,7 @@
 
 class USkeletalMeshComponent;
 class USphereComponent;
+class UWidgetComponent;
 
 UENUM(BlueprintType)
 enum class EWeaponState : uint8
@@ -24,7 +25,12 @@ class BLASTERSHOOTER_API ABSBaseWeapon : public AActor
 
 public:
     ABSBaseWeapon();
+
+    void SetEquipped();
+
     virtual void Tick(float DeltaTime) override;
+    virtual void NotifyActorBeginOverlap(AActor* OtherActor);
+    virtual void NotifyActorEndOverlap(AActor* OtherActor);
 
 protected:
     UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
@@ -33,8 +39,17 @@ protected:
     UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
     USphereComponent* CollisionComponent;
 
-    UPROPERTY(VisibleAnywhere)
+    UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+    UWidgetComponent* WidgetComponent;
+
+    UPROPERTY(VisibleAnywhere, Category = "State", ReplicatedUsing = OnRep_WeaponState)
     EWeaponState WeaponState;
 
     virtual void BeginPlay() override;
+
+private:
+    void SetWeaponState(EWeaponState State);
+
+    UFUNCTION()
+    void OnRep_WeaponState();
 };

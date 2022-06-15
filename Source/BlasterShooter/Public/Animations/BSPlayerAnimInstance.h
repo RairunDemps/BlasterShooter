@@ -29,4 +29,10 @@ protected:
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Movement")
     bool bMoving;
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Movement")
+    bool bCrouch;
+    
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
+    bool bWeaponEquipped;
 };
