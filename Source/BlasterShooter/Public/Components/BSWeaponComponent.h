@@ -20,6 +20,10 @@ public:
 	void TryEquipWeapon(ABSBaseWeapon* Weapon);
     bool IsCurrentWeaponEquipped() const { return CurrentWeapon != nullptr; }
 
+	void EnableAiming();
+	void DisableAiming();
+    bool IsAiming() const { return bAiming; }
+
 protected: 
 	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
     int32 InventoryVolume = 2;
@@ -36,10 +40,15 @@ private:
 	UPROPERTY(Replicated)
     ABSBaseWeapon* CurrentWeapon;
 
-	void AttachWeaponToSocket(ABSBaseWeapon* Weapon, USceneComponent* SceneComponent, const FName& SocketName);
+	UPROPERTY(Replicated)
+    bool bAiming;
 
+	void AttachWeaponToSocket(ABSBaseWeapon* Weapon, USceneComponent* SceneComponent, const FName& SocketName);
 	void EquipWeapon(ABSBaseWeapon* Weapon, ACharacter* Owner);
 
 	UFUNCTION(Server, Reliable)
     void Server_EquipWeapon(ABSBaseWeapon* Weapon, ACharacter* Owner);
+
+	UFUNCTION(Server, Reliable)
+    void Server_SetAiming(bool bAimingValue);
 };

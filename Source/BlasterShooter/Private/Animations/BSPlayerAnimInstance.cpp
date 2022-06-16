@@ -24,4 +24,5 @@ void UBSPlayerAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
     bMoving = PlayerCharacter->GetCharacterMovement()->GetCurrentAcceleration().Size() > 0;
     bCrouch = PlayerCharacter->bIsCrouched;
     bWeaponEquipped = PlayerCharacter->IsWeaponEquipped();
+    bAiming = PlayerCharacter->IsAiming();
 }

@@ -31,11 +31,6 @@ ABSPlayerCharacter::ABSPlayerCharacter()
     GetCharacterMovement()->NavAgentProps.bCanCrouch = true;
 }
 
-bool ABSPlayerCharacter::IsWeaponEquipped() const
-{
-    return WeaponComponent && WeaponComponent->IsCurrentWeaponEquipped();
-}
-
 void ABSPlayerCharacter::BeginPlay()
 {
     Super::BeginPlay();
@@ -53,6 +48,8 @@ void ABSPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
     PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ABSPlayerCharacter::Jump);
     PlayerInputComponent->BindAction("Pickup", IE_Pressed, this, &ABSPlayerCharacter::PickupWeapon);
     PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &ABSPlayerCharacter::CrouchButtonPressed);
+    PlayerInputComponent->BindAction("Aiming", IE_Pressed, WeaponComponent, &UBSWeaponComponent::EnableAiming);
+    PlayerInputComponent->BindAction("Aiming", IE_Released, WeaponComponent, &UBSWeaponComponent::DisableAiming);
 
     PlayerInputComponent->BindAxis("MoveForward", this, &ABSPlayerCharacter::MoveForward);
     PlayerInputComponent->BindAxis("MoveRight", this, &ABSPlayerCharacter::MoveRight);
@@ -107,4 +104,14 @@ void ABSPlayerCharacter::CrouchButtonPressed()
     {
         Crouch();
     }
+}
+
+bool ABSPlayerCharacter::IsWeaponEquipped() const
+{
+    return WeaponComponent && WeaponComponent->IsCurrentWeaponEquipped();
+}
+
+bool ABSPlayerCharacter::IsAiming() const
+{
+    return WeaponComponent && WeaponComponent->IsAiming();
 }

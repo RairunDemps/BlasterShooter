@@ -20,6 +20,7 @@ public:
     ABSPlayerCharacter();
 
     bool IsWeaponEquipped() const;
+    bool IsAiming() const;
 
     virtual void Tick(float DeltaTime) override;
     virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
